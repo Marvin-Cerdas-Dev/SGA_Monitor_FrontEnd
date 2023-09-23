@@ -21,7 +21,7 @@ function App() {
   }, []); // El segundo argumento [] asegura que el efecto se ejecute solo una vez al montar el componente
 
   // Transforma 'data' para que tenga una propiedad 'name' igual a 'date'
-  const lastTenData = data.slice(-25); // Obtén los últimos 10 elementos de 'data'
+  const lastTenData = data.slice(-20); // Obtén los últimos 10 elementos de 'data'
 
   const chartData = lastTenData.map((item) => ({
     ...item,
@@ -30,22 +30,36 @@ function App() {
     Limite: 85, // Valor fijo
   }));
   
-
   return (
     <div className="App">
       {/* Add the title for the chart */}
       <h1>Gráfica de SGA</h1>
 
       {/* Add the line chart */}
-      <LineChart width={1100} height={300} data={chartData}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis domain={[0, 100]} />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="SGA" stroke="Green" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="Limite" stroke="red" />
-      </LineChart>
+      <div class="container">
+        <div class="box">
+          <div class="box-row">
+            <div class="box-cell box1">
+              <LineChart width={900} height={300} data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis domain={[0, 100]} />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="SGA" stroke="Green" activeDot={{ r: 8 }} />
+              <Line type="monotone" dataKey="Limite" stroke="red" />
+              </LineChart>                    
+            </div>
+            <div class="box-cell box2">
+              <div class="trafficLight">
+              <span class="red"></span>
+              <span class="yellow"></span>
+              <span class="green"></span>
+              </div>      
+            </div>
+          </div>
+        </div>
+      </div>
 
       <h1>Eventos que Exceden el Límite de Memoria</h1>
       <Suspense fallback={<div>Loading...</div>}>
@@ -61,7 +75,7 @@ function App() {
           <tbody>
             {edata?.map((item) => (
               <tr key={item.eventId}>
-                <td>{item.event_date}</td>
+                <td class="table-date">{item.event_date}</td>
                 <td>{item.memory_percentage}%</td>
                 <td>{item.user_name}</td>
                 <td>{item.user_query}</td>
