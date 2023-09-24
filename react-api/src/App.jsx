@@ -11,12 +11,12 @@ function TrafficLight({ percentage }) {
   let genericClass = "trafficLight-gris";
   let list = [];
 
-  if (percentage < 50) {
+  if (percentage <= 50) {
     colorClass = "trafficLight-green";
     list.push(<span key="generic1" className={genericClass}></span>);
     list.push(<span key="generic2" className={genericClass}></span>);
     list.push(<span key="color" className={colorClass}></span>);
-  } else if (percentage < 85) {
+  } else if (percentage <= 85) {
     colorClass = "trafficLight-yellow";
     list.push(<span key="generic1" className={genericClass}></span>);
     list.push(<span key="color" className={colorClass}></span>);
@@ -30,7 +30,6 @@ function TrafficLight({ percentage }) {
 
   return <>{list}</>; 
 }
-
 
 function App() {
   const data = apiData.read();
@@ -51,9 +50,7 @@ function App() {
   const lastDataTl  = data.slice(-1); // Obtine el último dato 
 
   const porcentajeActual = lastDataTl?.map((item) => (item.memory_percentage));
-  console.log("El valor es: " + porcentajeActual);
-  /* asignaColorSemaforto(30) */
-  
+    
   const chartData = lastTenData.map((item) => ({
     ...item,
     name: item.date.split(',')[1].trim().substring(0, 17),

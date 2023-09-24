@@ -126,12 +126,10 @@
   background-color: red;
 }
 
-/* Estilo para el segundo caso */
 .trafficLight-yellow {
   background-color: yellow;
 }
 
-/* Estilo para el tercer caso */
 .trafficLight-green {
   background-color: green;
 }
