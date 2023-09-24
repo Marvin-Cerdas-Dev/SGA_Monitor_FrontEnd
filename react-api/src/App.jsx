@@ -6,6 +6,32 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "r
 const apiData = fetchData("http://127.0.0.1:5000/traffic-memory-state");
 const apiDataEvent = fetchData("http://127.0.0.1:5000/event_info");
 
+function TrafficLight({ percentage }) {
+  let colorClass = "";
+  let genericClass = "trafficLight-gris";
+  let list = [];
+
+  if (percentage < 50) {
+    colorClass = "trafficLight-green";
+    list.push(<span key="generic1" className={genericClass}></span>);
+    list.push(<span key="generic2" className={genericClass}></span>);
+    list.push(<span key="color" className={colorClass}></span>);
+  } else if (percentage < 85) {
+    colorClass = "trafficLight-yellow";
+    list.push(<span key="generic1" className={genericClass}></span>);
+    list.push(<span key="color" className={colorClass}></span>);
+    list.push(<span key="generic2" className={genericClass}></span>);
+  } else {
+    colorClass = "trafficLight-red";
+    list.push(<span key="color" className={colorClass}></span>);
+    list.push(<span key="generic1" className={genericClass}></span>);
+    list.push(<span key="generic2" className={genericClass}></span>);
+  }
+
+  return <>{list}</>; 
+}
+
+
 function App() {
   const data = apiData.read();
   const edata = apiDataEvent.read();
@@ -22,7 +48,12 @@ function App() {
 
   // Transforma 'data' para que tenga una propiedad 'name' igual a 'date'
   const lastTenData = data.slice(-20); // Obtén los últimos 10 elementos de 'data'
+  const lastDataTl  = data.slice(-1); // Obtine el último dato 
 
+  const porcentajeActual = lastDataTl?.map((item) => (item.memory_percentage));
+  console.log("El valor es: " + porcentajeActual);
+  /* asignaColorSemaforto(30) */
+  
   const chartData = lastTenData.map((item) => ({
     ...item,
     name: item.date.split(',')[1].trim().substring(0, 17),
@@ -34,7 +65,6 @@ function App() {
     <div className="App">
       {/* Add the title for the chart */}
       <h1>Gráfica de SGA</h1>
-
       {/* Add the line chart */}
       <div class="container">
         <div class="box">
@@ -52,10 +82,13 @@ function App() {
             </div>
             <div class="box-cell box2">
               <div class="trafficLight">
-              <span class="red"></span>
-              <span class="yellow"></span>
-              <span class="green"></span>
-              </div>      
+              <TrafficLight percentage={porcentajeActual} />
+              </div>
+              {lastDataTl?.map((item) => (
+              <tr key={item.eventId}>
+                <td>{item.memory_percentage}%</td>
+              </tr>
+            ))}      
             </div>
           </div>
         </div>
