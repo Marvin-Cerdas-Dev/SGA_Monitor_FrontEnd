@@ -2,7 +2,7 @@ import React, { Suspense, useEffect } from "react";
 import { fetchData } from "./fetchData";
 import "./App.css";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import { BarChart, Bar} from "recharts";
 
 const apiData = fetchData("http://127.0.0.1:5000/traffic-memory-state");
 const apiDataEvent = fetchData("http://127.0.0.1:5000/event_info");
@@ -65,8 +65,9 @@ function App() {
     ...item,
     name: item.tablespace_name,
     mb_usada:item.mb_used,
-    mb_libre:mb_free,
-    mb_hwr:hwr_mb,
+    mb_libre:item.mb_free,
+    mb_hwr:item.hwr_mb,
+    mb_total:item.mb_size - item.mb_used,
   }));
 
   return (
@@ -134,8 +135,10 @@ function App() {
               <YAxis/>
               <Tooltip />
               <Legend />
-              <Bar dataKey="mb_usada" stackId="a" fill="#8884d8" />
-              <Bar dataKey="mb_libre" stackId="a" fill="#82ca9d" />
+              <Bar dataKey="mb_usada" stackId="a" fill="#338AFF" />
+              <Bar dataKey="mb_libre" stackId="a" fill="#33FF74" />
+              <Bar dataKey="mb_hwr" stackId="a" fill="#FF3633" />
+              <Bar dataKey="mb_total" stackId="a" fill="#000000" />
               </BarChart>                    
             </div>
     </div>
