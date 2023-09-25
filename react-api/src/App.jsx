@@ -2,9 +2,11 @@ import React, { Suspense, useEffect } from "react";
 import { fetchData } from "./fetchData";
 import "./App.css";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 const apiData = fetchData("http://127.0.0.1:5000/traffic-memory-state");
 const apiDataEvent = fetchData("http://127.0.0.1:5000/event_info");
+const apiDataLogs = fetchData("http://127.0.0.1:5000/tablespaces_volumetria");
 
 function TrafficLight({ percentage }) {
   let colorClass = "";
@@ -34,6 +36,7 @@ function TrafficLight({ percentage }) {
 function App() {
   const data = apiData.read();
   const edata = apiDataEvent.read();
+  const logdata = apiDataLogs.read();
 
   useEffect(() => {
     // Establecer un intervalo para recargar la página cada minuto (60,000 milisegundos)
@@ -58,6 +61,14 @@ function App() {
     Limite: 85, // Valor fijo
   }));
   
+  const barData = logdata.map((item) => ({
+    ...item,
+    name: item.tablespace_name,
+    mb_usada:item.mb_used,
+    mb_libre:mb_free,
+    mb_hwr:hwr_mb,
+  }));
+
   return (
     <div className="App">
       {/* Add the title for the chart */}
@@ -66,6 +77,7 @@ function App() {
       <div class="container">
         <div class="box">
           <div class="box-row">
+
             <div class="box-cell box1">
               <LineChart width={900} height={300} data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -114,6 +126,18 @@ function App() {
           </tbody>
         </table>
       </Suspense>
+      <h1>Eventos de Tablespace de Memoria </h1>
+      <div class="box-cell box1">
+              <BarChart width={900} height={300} data={barData}  margin={{top: 20,right: 30,left: 20,bottom: 5}}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis/>
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="mb_usada" stackId="a" fill="#8884d8" />
+              <Bar dataKey="mb_libre" stackId="a" fill="#82ca9d" />
+              </BarChart>                    
+            </div>
     </div>
   );
 }
