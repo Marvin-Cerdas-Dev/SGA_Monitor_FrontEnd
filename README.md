@@ -117,3 +117,6 @@ yarn build
 
 ## 📜 License
 This project is licensed under the [MIT License.](LICENSE)
+
+## 🤝 Contact
+Marvin Cerdas - [GitHub Profile](https://github.com/Marvin-Cerdas-Dev)
