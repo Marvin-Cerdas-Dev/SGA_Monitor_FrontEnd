@@ -1,5 +1,10 @@
 # 📊 SGA Monitor - Frontend
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Marvin-Cerdas-Dev/SGA_Monitor_FrontEnd)
+[![GitHub issues](https://img.shields.io/github/issues/tu-usuario/tu-repo)](https://github.com/tu-usuario/tu-repo/issues)
+[![GitHub stars](https://img.shields.io/github/stars/tu-usuario/tu-repo)](https://github.com/tu-usuario/tu-repo/stargazers)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Welcome to the **SGA Monitor Frontend**, a web application designed to visualize and monitor the **System Global Area (SGA)** performance metrics in real-time. This frontend provides an intuitive interface for database administrators to track memory usage, tablespace status, and critical system events.
 
 ---
