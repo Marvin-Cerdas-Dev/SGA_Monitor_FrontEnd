@@ -36,7 +36,7 @@ Built with modern web technologies to deliver real-time database performance ins
 ## 🔧 Requirements
 - **Node.js 16+**
 - **React 18+**
-- **npm** or **yarn**
+- **npm**
 - Modern web browser
 - Backend SGA Monitor API
 
@@ -105,8 +105,6 @@ SGA_Monitor_FrontEnd/
 2. Start development server:
    ```bash
    npm start
-   # or
-   yarn start
    ```
 3. Access at `http://localhost:3000`
 
@@ -120,8 +118,6 @@ SGA_Monitor_FrontEnd/
 ## 🛠️ Production Build
 ```bash
 npm run build
-# or
-yarn build
 ```
 
 ## 📜 License
