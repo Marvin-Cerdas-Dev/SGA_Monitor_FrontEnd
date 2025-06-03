@@ -57,8 +57,6 @@ Built with modern web technologies to deliver real-time database performance ins
 2. Install dependencies:
    ```bash
    npm install
-   # or
-   yarn install
    ```
 
 3. Configure the application:
